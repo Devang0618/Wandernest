@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - My Website{% endblock %}
+
+{% block content %}
+<!-- Content for home page -->
+<form>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+          <h1>Welcome to the Driver Dashboard, {{ user_data.username }} 😇🙏</h1>
+          <p>Your Profile Category: {{ user_data.profile_name }}</p>
+        </div>
+        <div class="dashboard-content">
+          <p>Name: {{ user_data.name }}</p>
+          <p>Birth Date: {{ user_data.birth_date }}</p>
+          <p>Gender: {{ user_data.gender }}</p>
+          <p>Email: {{ user_data.email }}</p>
+</form>
+          <!-- Add specific content for the driver dashboard -->
+          <h2>Post Service Ride</h2>
+        <form method="post" action="{% url 'post_service_ride' %}">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Display the form fields -->
+            <button type="submit">Submit</button>
+        </form>
+        <hr>
+
+          <h2>Your Posted Service Rides</h2>
+        <ul>
+            {% for ride in service_rides %}
+                <li>
+                    {{ ride.current_location }} to {{ ride.destination_location }}
+                    <a href="{% url 'view_requests' %}">View Requests</a>
+                </li>
+            {% empty %}
+                <li>No service rides posted yet.</li>
+            {% endfor %}
+        </ul>
+        </div>
+        <div class="dashboard-footer">
+          <p>This is your user dashboard.</p>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
+      </div>
+
+      <!--
+    <h3>Post a Service:</h3>
+    <form method="post">
+        {% csrf_token %}
+        <label for="current_location">Current Location:</label>
+        <input type="text" id="current_location" name="current_location" required><br>
+        <label for="destination_location">Destination Location:</label>
+        <input type="text" id="destination_location" name="destination_location" required><br>
+        <button type="submit">Post Service</button>
+    </form>
+    
+    <h3>Service Requests:</h3>
+    {% for service in services %}
+        <div>
+            <p>From: {{ service.user.username }}</p>
+            <p>Current Location: {{ service.current_location }}</p>
+            <p>Destination Location: {{ service.destination_location }}</p>
+            <form method="post" action="{% url 'accept_service' service.id %}">
+                {% csrf_token %}
+                <button type="submit">Accept</button>
+            </form>
+        </div>
+    {% endfor %}
+    -->
+{% endblock %}

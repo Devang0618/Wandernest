@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Your Profile{% endblock %}
+{% block content %}
+<h1>Your Profile</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {% if profile.category.name == 'Driver' %}
+        <div>
+            <label for="id_vehicle_number">Vehicle Number:</label>
+            {{ form.vehicle_number }}
+        </div>
+        <div>
+            <label for="id_license_number">License Number:</label>
+            {{ form.license_number }}
+        </div>
+    {% elif profile.category.name == 'Owner' %}
+        <div>
+            <label for="id_address">Address:</label>
+            {{ form.address }}
+        </div>
+        <div>
+            <label for="id_price">Room:</label>
+            {{ form.room }}
+        </div>
+    {% endif %}
+    <button type="submit">Save</button>
+</form>
+
+<!--
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+-->
+
+<h2>Profile Details</h2>
+<p>Name: {{ profile.name }}</p>
+<p>Birth Date: {{ profile.birth_date }}</p>
+<p>Gender: {{ profile.get_gender_display }}</p>
+<p>Email: {{ profile.email }}</p>
+{% if profile.category.name == 'Driver' %}
+    <p>Vehicle Number: {{ profile.vehicle_number }}</p>
+    <p>License Number: {{ profile.license_number }}</p>
+{% elif profile.category.name == 'Owner' %}
+    <p>Address: {{ profile.address }}</p>
+    <p>Price: {{ profile.price }}</p>
+{% endif %}
+{% endblock %}
