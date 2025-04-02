@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Request Detail{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Request Detail</h1>
+    </div>
+    <div class="dashboard-content">
+        <h2>{{ request_detail.rider.user.username }} requested to join your service ride</h2>
+        <p>Status: {{ request_detail.status }}</p>
+        <form method="post" action="{% url 'approve_request' request_detail.id %}">
+            {% csrf_token %}
+            <button type="submit" name="status" value="Approved">Approve</button>
+        </form>
+        <form method="post" action="{% url 'reject_request' request_detail.id %}">
+            {% csrf_token %}
+            <button type="submit" name="status" value="Rejected">Reject</button>
+        </form>
+    </div>
+    <div class="dashboard-footer">
+        <a href="{% url 'dashboard_driver' %}">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

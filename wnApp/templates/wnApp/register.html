@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h1>User Registration</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="category">Select Category:</label>
+        <select id="category" name="category">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select><hr>
+    <button type="submit">Register</button>
+</form>
+{% endblock %}

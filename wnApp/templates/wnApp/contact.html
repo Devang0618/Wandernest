@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact - My Website{% endblock %}
+
+{% block content %}
+<!-- Content for home page -->
+<h1>Contact Us</h1>
+<hr>
+<div class="container">
+
+    <div class="contact-info">
+        <h2>Contact Information</h2>
+        <p>Please feel free to contact us through any of the following means:</p>
+        <ul>
+            <li>Email: enterdevang@gmail.com</li>
+            <li>Phone: +91 9510691600 </li>
+            <li>Address: Pune, Maharashtra, India</li>
+        </ul>
+    </div>
+
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <!-- Display error messages if any -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required><br>
+            <input type="email" name="email" placeholder="Your Email" required><br>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <!--
+    {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+-->
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Requests{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Requests for My Service Rides</h1>
+    </div>
+    <div class="dashboard-content">
+        <ul>
+            {% for request in ride_requests %}
+                <li>
+                    <a href="{% url 'request_detail' request.id %}">
+                        {{ request.rider.user.username }} - {{ request.status }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="dashboard-footer">
+        <a href="{% url 'dashboard_driver' %}">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Post Rental Property{% endblock %}
+{% block content %}
+<div class="post-property-container">
+  <h2>Post Rental Property</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Property</button>
+  </form>
+</div>
+{% endblock %}
